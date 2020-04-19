@@ -4,6 +4,7 @@ import speech_recognition as sr
 import pyttsx3
 from pyttsx3 import voice
 import time
+import smtplib
 
 # Initialize the recognizer  
 r = sr.Recognizer()  
@@ -21,13 +22,13 @@ print("\n\nHello! Welcome to Voice Based Mailing Service")
 SpeakText("Hello! Welcome to Voice Based Mailing Service")
 time.sleep(0.5)
 
-print("You need to login first, so we need your username and password...")
-SpeakText("You need to login first, so we need your username and password")
+print("You need to login first, so we need your Email and Password...")
+SpeakText("You need to login first, so we need your email and password")
 time.sleep(1)
 
 # Enter the credentials
-SpeakText("\nPlease Enter your Username")
-sender = input("\nUsername  : ")
+SpeakText("\nPlease Enter your Email")
+sender = input("\nEmail   : ")
 
 SpeakText("\nAlright! Now enter your password")
 password = input("\nPassword: ")
@@ -50,7 +51,7 @@ try:
         SpeakText("You are good to go.");
         time.sleep(1)
         SpeakText("Tell me the message.") 
-        print("\nMessage :  ...Speak Now...")
+        print("\nMessage :		Listening...")
         audio2 = r.listen(source2) 
            
         # Using ggogle to recognize audio 
@@ -68,96 +69,111 @@ except sr.UnknownValueError:
 SpeakText("Well Done! Please enter receiver EMail Address.")
 receiver = input("\nReceiver's Email: ")
 
-SpeakText("Ok, we are sending your mail.")
-time.sleep(1)
-SpeakText("You will be informed once the mail is sent.")
+# Function to display an error message when the mail is not sent
+def ShowError():
+	print("\nWe are having problem sending your mail.");
+	SpeakText("We are having problem sending your mail.")
+	time.sleep(1)
 
+	print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
+	SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
+	time.sleep(1)
 
-
-# Function to send a mail using smtp
-def Send(xsender, xpassword, xreceiver, xmessage, smtp_server, smtp_port): 
-    
-    try:
-    	# Try to send the mail  
-    	# Creates SMTP session 
-    	s = smtplib.SMTP(smtp_server, smtp_port) 
-    	s.ehlo()
-  
-    	# Start TLS for security 
-    	s.starttls() 
-  
-    	# Authentication 
-    	s.login(xsender, xpassword) 
-  
-    	# Sending the mail 
-    	s.sendmail(xreceiver, xsender, xmessage) 
-  
-    	# Terminating the session 
-    	s.quit() 
-
-    except smtplib.SMTPAuthenticationError as e:
-
-    	# Prints the errors
-    	print("SMTP error occured: " + str(e))
+	print("\nHope it helps, Thank You")
+	SpeakText("Hope it helps, Thank You")
 
 # Prompt the user for the service
-choose = input("\nChoose your server : \n\t1. Gmail\n\t2. Yahoo\n\t3. Outlook")
+SpeakText("Now Please choose your mailing service.")
+choose = int(input("\n\n1. Gmail\n2. Yahoo\n3. Outlook\nChoose your server : "))
+
+SpeakText("Ok, we are sending your mail.")
+SpeakText("You will be informed once the mail is sent.")
+
 
 # Try to send the EMail through different service
 if choose == 1:
 	
-# Try sending the mail through Gmail
+	# Try sending the mail through Gmail
 	try:
-		Send(sender, password, receiver, message, "smtp.gmail.com", 587)
+		# Sending mail from your Gmail account  
+	 
+		# creates SMTP session 
+		s = smtplib.SMTP('smtp.gmail.com', 587) 
+		s.ehlo()
+  
+		# start TLS for security 
+		s.starttls() 
+  
+		# Authentication 
+		s.login(str(sender), str(password)) 
+  
+		# sending the mail 
+		s.sendmail(str(sender), str(receiver), str(message)) 
+  
+		# terminating the session 
+		s.quit() 
+
+		# Prompt to the user
+		print("\nThe mail was sent successfully...")
+		SpeakText("Mail Sent successfully, Thank You for using this program")
+
 	# If not sent inform the user
 	except:
-		print("\nWe are having problem sending your mail.");
-		SpeakText("We are having problem sending your mail.")
-		time.sleep(1)
-
-		print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
-		SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
-		time.sleep(1)
-
-		print("\nHope it helps, Thank You")
-		SpeakText("Hope it helps, Thank You")
+		ShowError()
+	
 
 elif choose == 2:
 	# Try sending the mail through Yahoo
 	try:
-		Send(sender, password, receiver, message, "smtp.mail.yahoo.com", 587)
+		# Sending mail from your Yahoo account  
+	 
+		# creates SMTP session 
+		s = smtplib.SMTP('smtp.mail.yahoo.com', 587) 
+		s.ehlo()
+  
+		# start TLS for security 
+		s.starttls() 
+  
+		# Authentication 
+		# Authentication 
+		s.login(str(sender), str(password)) 
+  
+		# sending the mail 
+		s.sendmail(str(sender), str(receiver), str(message)) 
+  
+		# terminating the session 
+		s.quit() 
 	# If not sent inform the user
 	except:
-		print("\nWe are having problem sending your mail.");
-		SpeakText("We are having problem sending your mail.")
-		time.sleep(1)
-
-		print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
-		SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
-		time.sleep(1)
-
-		print("\nHope it helps, Thank You")
-		SpeakText("Hope it helps, Thank You")
-
+		ShowError()
+	
 elif choose == 3:
-	# Try sending the mail through Yahoo
+	# Try sending the mail through Outlook
 	try:
-		Send(sender, password, receiver, message, "smtp-mail.outlook.com", 587)
+		# Sending mail from your Outlook account  
+	 
+		# creates SMTP session 
+		s = smtplib.SMTP('smtp-mail.outlook.com', 587) 
+		s.ehlo()
+  
+		# start TLS for security 
+		s.starttls() 
+  
+		# Authentication 
+		s.login(str(sender), str(password)) 
+  
+		# sending the mail 
+		print(message)
+		s.sendmail(str(sender), str(receiver), str(message)) 
+  
+		# terminating the session 
+		s.quit() 
 	# If not sent inform the user
 	except:
-		print("\nWe are having problem sending your mail.");
-		SpeakText("We are having problem sending your mail.")
-		time.sleep(1)
-
-		print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
-		SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
-		time.sleep(1)
-
-		print("\nHope it helps, Thank You")
-		SpeakText("Hope it helps, Thank You")
+		ShowError()
 
 else:
-	print("\nInavlid Option\nThank You...");
+	print("\nInavlid Option\nThank You...")
 	SpeakText("We do not support any other services.")
 	time.sleep(1)
 	SpeakText("Thanks for using the Program.")
