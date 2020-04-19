@@ -143,6 +143,11 @@ elif choose == 2:
   
 		# terminating the session 
 		s.quit() 
+
+		# Prompt to the user
+		print("\nThe mail was sent successfully...")
+		SpeakText("Mail Sent successfully, Thank You for using this program")
+
 	# If not sent inform the user
 	except:
 		ShowError()
@@ -168,6 +173,11 @@ elif choose == 3:
   
 		# terminating the session 
 		s.quit() 
+
+		# Prompt to the user
+		print("\nThe mail was sent successfully...")
+		SpeakText("Mail Sent successfully, Thank You for using this program")
+		
 	# If not sent inform the user
 	except:
 		ShowError()
