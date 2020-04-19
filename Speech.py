@@ -62,9 +62,11 @@ try:
               
 except sr.RequestError as e: 
     print("Could not request results; {0}".format(e)) 
+    message = "test"
           
 except sr.UnknownValueError: 
     print("unknown error occured") 
+    message = "test"
 
 # Get the sender details
 SpeakText("Well Done! Please enter receiver EMail Address.")
@@ -169,7 +171,6 @@ elif choose == 3:
 		s.login(str(sender), str(password)) 
   
 		# sending the mail 
-		print(message)
 		s.sendmail(str(sender), str(receiver), str(message)) 
   
 		# terminating the session 
