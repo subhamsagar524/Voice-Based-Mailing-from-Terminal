@@ -5,6 +5,7 @@ import pyttsx3
 from pyttsx3 import voice
 import time
 import smtplib
+import getpass as gp
 
 # Initialize the recognizer  
 r = sr.Recognizer()  
@@ -31,7 +32,7 @@ SpeakText("\nPlease Enter your Email")
 sender = input("\nEmail   : ")
 
 SpeakText("\nAlright! Now enter your password")
-password = input("\nPassword: ")
+password = gp.getpass()
 time.sleep(1)
 
 # Get the message from the user
