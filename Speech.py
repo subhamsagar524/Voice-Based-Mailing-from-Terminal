@@ -51,26 +51,40 @@ try:
         #listens for the user's input 
         SpeakText("You are good to go.");
         time.sleep(1)
-        SpeakText("Tell me the message.") 
-        print("\nMessage :		Listening...")
+        SpeakText("Tell me the subject.") 
+        print("\nSubject :		Listening...")
         audio2 = r.listen(source2) 
            
         # Using ggogle to recognize audio 
-        message = r.recognize_google(audio2) 
-        message = message.lower()
-        print("\n" + message)
+        subject = r.recognize_google(audio2) 
+        subject = subject.lower()
+        print("\nYour Subject: " + subject)
+
+        SpeakText("Tell me the message body.") 
+        print("\nBody :		Listening...")
+        audio2 = r.listen(source2) 
+           
+        # Using ggogle to recognize audio 
+        body = r.recognize_google(audio2) 
+        body = body.lower()
+        print("Your Body: \n" + body)
               
 except sr.RequestError as e: 
     print("Could not request results; {0}".format(e)) 
-    message = "test"
+    subject = "Ignore this mail..."
+    body = "Sorry :( Sent by-mistake..."
           
 except sr.UnknownValueError: 
     print("unknown error occured") 
-    message = "test"
+    subject = "Ignore this mail..."
+    body = "Sorry :( Sent by-mistake..."
 
 # Get the sender details
 SpeakText("Well Done! Please enter receiver EMail Address.")
 receiver = input("\nReceiver's Email: ")
+
+# Add the subject and body to complete the message
+message = 'Subject: ' + subject + "\nDear " + receiver + ', \n\n' + body + '\nSent from: https://github.com/subhamsagar524/Voice-Based-Mailing-from-Terminal'
 
 # Function to display an error message when the mail is not sent
 def ShowError():
