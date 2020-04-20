@@ -71,6 +71,10 @@ SpeakText("\nAlright! Now enter your password")
 password = gp.getpass()
 time.sleep(1)
 
+# Initialize subject and body
+subject = 'no'
+body = 'no'
+
 # Get the message from the user
 # Exception handling to handle 
 # exceptions at the runtime 
@@ -107,13 +111,17 @@ try:
               
 except sr.RequestError as e: 
     print("Could not request results; {0}".format(e)) 
-    subject = "Ignore this mail..."
-    body = "Sorry :( Sent by-mistake..."
+    if subject == 'no':
+    	subject = "Ignore this mail..."
+    if body == 'no':
+    	body = "Sorry :( Sent by-mistake..."
           
 except sr.UnknownValueError: 
     print("unknown error occured") 
-    subject = "Ignore this mail..."
-    body = "Sorry :( Sent by-mistake..."
+    if subject == 'no':
+    	subject = "Ignore this mail..."
+    if body == 'no':
+    	body = "Sorry :( Sent by-mistake..."
 
 # Get the sender details
 SpeakText("Well Done! Please enter receiver EMail Address.")
