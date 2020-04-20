@@ -19,40 +19,40 @@ def SpeakText(command):
 
 # Function to send the mail
 def Sendmail(server, port, xsender, xpassword, xreceiver, xmessage):
-	# Sending mail
+    # Sending mail
 
-	# Creates SMTP session
-	s = smtplib.SMTP(server, port)
-	s.ehlo()
+    # Creates SMTP session
+    s = smtplib.SMTP(server, port)
+    s.ehlo()
 
-	# start TLS for security
-	s.starttls()
+    # start TLS for security
+    s.starttls()
 
-	# Authentication
-	s.login(str(xsender), str(xpassword))
+    # Authentication
+    s.login(str(xsender), str(xpassword))
   
-	# sending the mail 
-	s.sendmail(str(xsender), str(xreceiver), str(xmessage))
+    # sending the mail 
+    s.sendmail(str(xsender), str(xreceiver), str(xmessage))
   
-	# terminating the session 
-	s.quit()
+    # terminating the session 
+    s.quit()
 
-	# Prompt to the user
-	print("\nThe mail was sent successfully...")
-	SpeakText("Mail Sent successfully, Thank You for using this program")
+    # Prompt to the user
+    print("\nThe mail was sent successfully...")
+    SpeakText("Mail Sent successfully, Thank You for using this program")
 
 # Function to display an error message when the mail is not sent
 def ShowError():
-	print("\nWe are having problem sending your mail.");
-	SpeakText("We are having problem sending your mail.")
-	time.sleep(1)
+    print("\nWe are having problem sending your mail.");
+    SpeakText("We are having problem sending your mail.")
+    time.sleep(1)
 
-	print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
-	SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
-	time.sleep(1)
+    print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
+    SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
+    time.sleep(1)
 
-	print("\nHope it helps, Thank You")
-	SpeakText("Hope it helps, Thank You")
+    print("\nHope it helps, Thank You")
+    SpeakText("Hope it helps, Thank You")
 
 # Taking information from the user about the mail
 print("\n\nHello! Welcome to Voice Based Mailing Service")
