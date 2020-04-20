@@ -1,22 +1,58 @@
 # Python code to listen and send the mail to receiver
 
-import speech_recognition as sr 
+import speech_recognition as sr
 import pyttsx3
 from pyttsx3 import voice
 import time
 import smtplib
 import getpass as gp
 
-# Initialize the recognizer  
-r = sr.Recognizer()  
+# Initialize the recognizer
+r = sr.Recognizer()
   
-# Function to convert text to speech 
-def SpeakText(command): 
-      
-    # Initialize the engine 
+# Function to convert text to speech
+def SpeakText(command):
+    # Initialize the engine
     engine = pyttsx3.init()
-    engine.say(command) 
+    engine.say(command)
     engine.runAndWait()
+
+# Function to send the mail
+def Sendmail(server, port, xsender, xpassword, xreceiver, xmessage):
+	# Sending mail
+
+	# Creates SMTP session
+	s = smtplib.SMTP(server, port)
+	s.ehlo()
+
+	# start TLS for security
+	s.starttls()
+
+	# Authentication
+	s.login(str(xsender), str(xpassword))
+  
+	# sending the mail 
+	s.sendmail(str(xsender), str(xreceiver), str(xmessage))
+  
+	# terminating the session 
+	s.quit()
+
+	# Prompt to the user
+	print("\nThe mail was sent successfully...")
+	SpeakText("Mail Sent successfully, Thank You for using this program")
+
+# Function to display an error message when the mail is not sent
+def ShowError():
+	print("\nWe are having problem sending your mail.");
+	SpeakText("We are having problem sending your mail.")
+	time.sleep(1)
+
+	print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
+	SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
+	time.sleep(1)
+
+	print("\nHope it helps, Thank You")
+	SpeakText("Hope it helps, Thank You")
 
 # Taking information from the user about the mail
 print("\n\nHello! Welcome to Voice Based Mailing Service")
@@ -86,53 +122,19 @@ receiver = input("\nReceiver's Email: ")
 # Add the subject and body to complete the message
 message = 'Subject: ' + subject + "\nDear " + receiver + ', \n\n' + body + '\nSent from: https://github.com/subhamsagar524/Voice-Based-Mailing-from-Terminal'
 
-# Function to display an error message when the mail is not sent
-def ShowError():
-	print("\nWe are having problem sending your mail.");
-	SpeakText("We are having problem sending your mail.")
-	time.sleep(1)
-
-	print("\nPlease check your mail and authenticate the program and enable less secure apps for your account.")
-	SpeakText("Please check your mail and authenticate the program and enable less secure apps for your account.")
-	time.sleep(1)
-
-	print("\nHope it helps, Thank You")
-	SpeakText("Hope it helps, Thank You")
-
-# Prompt the user for the service
+# Prompt the user to choose the service
 SpeakText("Now Please choose your mailing service.")
 choose = int(input("\n\n1. Gmail\n2. Yahoo\n3. Outlook\nChoose your server : "))
 
 SpeakText("Ok, we are sending your mail.")
 SpeakText("You will be informed once the mail is sent.")
 
-
 # Try to send the EMail through different service
 if choose == 1:
 	
 	# Try sending the mail through Gmail
 	try:
-		# Sending mail from your Gmail account  
-	 
-		# creates SMTP session 
-		s = smtplib.SMTP('smtp.gmail.com', 587) 
-		s.ehlo()
-  
-		# start TLS for security 
-		s.starttls() 
-  
-		# Authentication 
-		s.login(str(sender), str(password)) 
-  
-		# sending the mail 
-		s.sendmail(str(sender), str(receiver), str(message)) 
-  
-		# terminating the session 
-		s.quit() 
-
-		# Prompt to the user
-		print("\nThe mail was sent successfully...")
-		SpeakText("Mail Sent successfully, Thank You for using this program")
+		Sendmail('smtp.gmail.com', 587, sender, password, receiver, message)
 
 	# If not sent inform the user
 	except:
@@ -142,28 +144,7 @@ if choose == 1:
 elif choose == 2:
 	# Try sending the mail through Yahoo
 	try:
-		# Sending mail from your Yahoo account  
-	 
-		# creates SMTP session 
-		s = smtplib.SMTP('smtp.mail.yahoo.com', 587) 
-		s.ehlo()
-  
-		# start TLS for security 
-		s.starttls() 
-  
-		# Authentication 
-		# Authentication 
-		s.login(str(sender), str(password)) 
-  
-		# sending the mail 
-		s.sendmail(str(sender), str(receiver), str(message)) 
-  
-		# terminating the session 
-		s.quit() 
-
-		# Prompt to the user
-		print("\nThe mail was sent successfully...")
-		SpeakText("Mail Sent successfully, Thank You for using this program")
+		Sendmail('smtp.mail.yahoo.com', 587, sender, password, receiver, message)
 
 	# If not sent inform the user
 	except:
@@ -172,27 +153,7 @@ elif choose == 2:
 elif choose == 3:
 	# Try sending the mail through Outlook
 	try:
-		# Sending mail from your Outlook account  
-	 
-		# creates SMTP session 
-		s = smtplib.SMTP('smtp-mail.outlook.com', 587) 
-		s.ehlo()
-  
-		# start TLS for security 
-		s.starttls() 
-  
-		# Authentication 
-		s.login(str(sender), str(password)) 
-  
-		# sending the mail 
-		s.sendmail(str(sender), str(receiver), str(message)) 
-  
-		# terminating the session 
-		s.quit() 
-
-		# Prompt to the user
-		print("\nThe mail was sent successfully...")
-		SpeakText("Mail Sent successfully, Thank You for using this program")
+		Sendmail('smtp-mail.outlook.com', 587, sender, password, receiver, message)
 		
 	# If not sent inform the user
 	except:
