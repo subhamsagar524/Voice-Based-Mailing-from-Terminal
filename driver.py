@@ -140,36 +140,36 @@ SpeakText("You will be informed once the mail is sent.")
 # Try to send the EMail through different service
 if choose == 1:
 	
-	# Try sending the mail through Gmail
-	try:
-		Sendmail('smtp.gmail.com', 587, sender, password, receiver, message)
+    # Try sending the mail through Gmail
+    try:
+    	Sendmail('smtp.gmail.com', 587, sender, password, receiver, message)
 
-	# If not sent inform the user
-	except:
-		ShowError()
+    # If not sent inform the user
+    except:
+    	ShowError()
 	
 
 elif choose == 2:
-	# Try sending the mail through Yahoo
-	try:
-		Sendmail('smtp.mail.yahoo.com', 587, sender, password, receiver, message)
+    # Try sending the mail through Yahoo
+    try:
+    	Sendmail('smtp.mail.yahoo.com', 587, sender, password, receiver, message)
 
-	# If not sent inform the user
-	except:
-		ShowError()
+    # If not sent inform the user
+    except:
+    	ShowError()
 	
 elif choose == 3:
-	# Try sending the mail through Outlook
-	try:
-		Sendmail('smtp-mail.outlook.com', 587, sender, password, receiver, message)
+    # Try sending the mail through Outlook
+    try:
+    	Sendmail('smtp-mail.outlook.com', 587, sender, password, receiver, message)
 		
-	# If not sent inform the user
-	except:
-		ShowError()
+    # If not sent inform the user
+    except:
+    	ShowError()
 
 else:
-	print("\nInavlid Option\nThank You...")
-	SpeakText("We do not support any other services.")
-	time.sleep(1)
-	SpeakText("Thanks for using the Program.")
+    print("\nInavlid Option\nThank You...")
+    SpeakText("We do not support any other services.")
+    time.sleep(1)
+    SpeakText("Thanks for using the Program.")
 	
