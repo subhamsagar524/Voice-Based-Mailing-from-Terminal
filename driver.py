@@ -12,6 +12,7 @@ r = sr.Recognizer()
   
 # Function to convert text to speech
 def SpeakText(command):
+    
     # Initialize the engine
     engine = pyttsx3.init()
     engine.say(command)
@@ -19,6 +20,7 @@ def SpeakText(command):
 
 # Function to send the mail
 def Sendmail(server, port, xsender, xpassword, xreceiver, xmessage):
+    
     # Sending mail
 
     # Creates SMTP session
@@ -43,6 +45,7 @@ def Sendmail(server, port, xsender, xpassword, xreceiver, xmessage):
 
 # Function to display an error message when the mail is not sent
 def ShowError():
+    
     print("\nWe are having problem sending your mail.");
     SpeakText("We are having problem sending your mail.")
     time.sleep(1)
@@ -71,7 +74,7 @@ SpeakText("\nAlright! Now enter your password")
 password = gp.getpass()
 time.sleep(1)
 
-# Initialize subject and body
+# Initialize subject and body, helpful if any error pop from speech recognizer
 subject = 'no'
 body = 'no'
 
@@ -110,14 +113,18 @@ try:
         print("Your Body: \n" + body)
               
 except sr.RequestError as e: 
+    
     print("Could not request results; {0}".format(e)) 
+    
     if subject == 'no':
     	subject = "Ignore this mail..."
     if body == 'no':
     	body = "Sorry :( Sent by-mistake..."
           
 except sr.UnknownValueError: 
+    
     print("unknown error occured") 
+    
     if subject == 'no':
     	subject = "Ignore this mail..."
     if body == 'no':
@@ -142,30 +149,38 @@ if choose == 1:
 	
     # Try sending the mail through Gmail
     try:
+
     	Sendmail('smtp.gmail.com', 587, sender, password, receiver, message)
 
     # If not sent inform the user
     except:
-    	ShowError()
+    	
+        ShowError()
 	
 
 elif choose == 2:
+    
     # Try sending the mail through Yahoo
     try:
-    	Sendmail('smtp.mail.yahoo.com', 587, sender, password, receiver, message)
+    	
+        Sendmail('smtp.mail.yahoo.com', 587, sender, password, receiver, message)
 
     # If not sent inform the user
     except:
-    	ShowError()
+    
+        ShowError()
 	
 elif choose == 3:
+    
     # Try sending the mail through Outlook
     try:
-    	Sendmail('smtp-mail.outlook.com', 587, sender, password, receiver, message)
+    	
+        Sendmail('smtp-mail.outlook.com', 587, sender, password, receiver, message)
 		
     # If not sent inform the user
     except:
-    	ShowError()
+    	
+        ShowError()
 
 else:
     print("\nInvalid Option\nThank You...")
