@@ -98,7 +98,7 @@ try:
         print("\nSubject :		Listening...")
         audio2 = r.listen(source2) 
            
-        # Using ggogle to recognize audio 
+        # Using google to recognize audio 
         subject = r.recognize_google(audio2) 
         subject = subject.lower()
         print("\nYour Subject: " + subject)
@@ -107,7 +107,7 @@ try:
         print("\nBody :		Listening...")
         audio2 = r.listen(source2) 
            
-        # Using ggogle to recognize audio 
+        # Using google to recognize audio 
         body = r.recognize_google(audio2) 
         body = body.lower()
         print("Your Body: \n" + body)
